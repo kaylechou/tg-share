@@ -2,6 +2,8 @@
 
 所有要发到 Telegram 的文件都放这里，推送即自动同步到 TG。
 
+例外：Pro 歌词工具（propresenter-lyric-tool）的文件归它自己的项目，不放这里。
+
 ## 怎么用
 
 - **自动同步**：把文件推送到 `main` 分支，就会发到 TG（`.github/` 与 `README.md` 除外）。
