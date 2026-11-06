@@ -1,0 +1,50 @@
+name: Forward files to Telegram
+
+# 转发专用仓库：任何文件推送到 main 即自动同步到 TG，也可手动指定文件发送。
+# 需要的仓库 secret：TELEGRAM_BOT_TOKEN、TELEGRAM_CHAT_ID。
+
+on:
+  workflow_dispatch:
+    inputs:
+      file_path:
+        description: "Repo path of a file to send (optional)"
+        required: false
+        default: ""
+      message:
+        description: "Text message to send first (optional)"
+        required: false
+        default: ""
+  push:
+    branches: [main]
+    paths-ignore:
+      - '.github/**'
+      - 'README.md'
+
+jobs:
+  send_dispatched:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Send file to Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          FILE_PATH: ${{ inputs.file_path }}
+          MESSAGE: ${{ inputs.message }}
+        run: python3 .github/scripts/send_to_tg.py
+
+  sync_push:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Send pushed files to Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          BEFORE: ${{ github.event.before }}
+          SHA: ${{ github.sha }}
+        run: python3 .github/scripts/send_to_tg.py --sync
