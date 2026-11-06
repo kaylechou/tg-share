@@ -19,6 +19,23 @@ on:
     paths-ignore:
       - '.github/**'
       - 'README.md'
+      # 临时：搬运 16 个旧文件期间不触发 TG 同步（搬完即删）
+      - 'liquid-glass-avatar-v6-bright-6000.png'
+      - 'liquid-glass-avatar-v6-bright.png'
+      - 'liquid-glass-avatar-v6-google-bright.png'
+      - 'liquid-glass-avatar-v6-google.png'
+      - 'liquid-glass-avatar-v6.png'
+      - 'liquid-glass-moments-bg-lively-bright.png'
+      - 'liquid-glass-moments-bg-lively.png'
+      - 'liquid-glass-youtube-banner-bold-bright-2560x1440.png'
+      - 'liquid-glass-youtube-banner-bold-bright.png'
+      - 'liquid-glass-youtube-banner-bold.png'
+      - 'liquid-glass-youtube-banner-v2-bright-2560x1440.png'
+      - 'liquid-glass-youtube-banner-v2-bright.png'
+      - 'liquid-glass-youtube-banner-v2.png'
+      - 'youtube-banner-jkspace-liquid-glass-10s-1080p.mp4'
+      - 'youtube-banner-jkspace-liquid-glass-5s-1080p.mp4'
+      - '从灰心到见证.pptx'
 
 jobs:
   send_dispatched:
